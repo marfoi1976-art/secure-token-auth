@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Device Simulator – NFC Armor Sandbox</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>Device Simulator</h1>
+  <p>Simulates secure token generation for terminal verification</p>
+</header>
+
+<main class="cards-container">
+
+  <!-- Card 1 -->
+  <section class="card" id="card-identity">
+    <h2>1. Device Identity</h2>
+    <div class="field">
+      <label>Device ID</label>
+      <input type="text" id="deviceId" placeholder="e.g. dev-abc123" />
+      <button id="btn-random-id">Generate Random</button>
+    </div>
+    <div class="field">
+      <button id="btn-derive-se-key" disabled>Derive SE Key</button>
+    </div>
+    <div class="status" id="status-identity">Waiting</div>
+  </section>
+
+  <!-- Card 2 -->
+  <section class="card" id="card-intent">
+    <h2>2. User Intent</h2>
+    <div class="field">
+      <label>Intent (e.g. "Send 0.5 ETH to 0x…")</label>
+      <textarea id="intentText" rows="3"></textarea>
+    </div>
+    <div class="field">
+      <button id="btn-biometric-confirm" disabled>Confirm (Simulate Biometric)</button>
+    </div>
+    <div class="status" id="status-intent">Locked – complete previous step</div>
+  </section>
+
+  <!-- Card 3 -->
+  <section class="card" id="card-tee">
+    <h2>3. TEE Signature</h2>
+    <div class="field">
+      <button id="btn-tee-sign" disabled>Sign Intent Hash in TEE</button>
+    </div>
+    <div class="status" id="status-tee">Locked</div>
+  </section>
+
+  <!-- Card 4 -->
+  <section class="card" id="card-challenge">
+    <h2>4. Terminal Challenge</h2>
+    <div class="field">
+      <label>Paste challenge from terminal</label>
+      <input type="text" id="challenge" placeholder="Paste challenge here" />
+    </div>
+    <div class="field">
+      <button id="btn-bind-challenge" disabled>Bind Challenge</button>
+    </div>
+    <div class="status" id="status-challenge">Locked</div>
+  </section>
+
+  <!-- Card 5 -->
+  <section class="card" id="card-token">
+    <h2>5. Token Generation</h2>
+    <div class="field">
+      <button id="btn-generate-token" disabled>Generate Transaction Token</button>
+    </div>
+    <div class="token-viewer">
+      <pre id="tokenOutput">Token will appear here…</pre>
+    </div>
+    <div class="status" id="status-token">Locked</div>
+  </section>
+
+  <!-- Card 6 -->
+  <section class="card" id="card-send">
+    <h2>6. Send to Terminal</h2>
+    <div class="field">
+      <button id="btn-copy-token" disabled>Copy Token</button>
+    </div>
+    <div class="status" id="status-send">Locked</div>
+  </section>
+
+</main>
+
+<div class="logs">
+  <h3>Device Log</h3>
+  <pre id="log"></pre>
+</div>
+
+<script src="sandbox.js"></script>
+</body>
+</html>
